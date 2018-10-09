@@ -10,6 +10,48 @@ var drugsRouter = require('./routes/drug');
 var userRouter = require('./routes/user');
 var paymentRouter = require('./routes/payment');
 
+let mongoose = require('./db/db_config')
+var userSchema = mongoose.model('user')
+var drugSchema = mongoose.model("drug")
+
+userSchema.deleteMany({}).then(data => {
+  drugSchema.deleteMany({}).then(data => {
+    let user = new userSchema({
+      username: "admin",
+      password: "admin",
+      name: "admin",
+      points: 0
+    })
+    user.save().then(data => {
+      drugSchema.insertMany([
+        { name: "Panadol", price: 5.00, quantity: 120.00 },
+        { name: "Piriton", price: 30.00, quantity: 74.00 },
+        { name: "Aspirin", price: 20.00, quantity: 50.00 },
+        { name: "Amoxicillin", price: 10.00, quantity: 25.00 },
+        { name: "Plavix", price: 750.00, quantity: 0.00 },
+        { name: "Abilify", price: 20.00, quantity: 50.00 },
+        { name: "Singulair", price: 25.55, quantity: 55.00 },
+        { name: "Epogen", price: 15.00, quantity: 33.00 },
+        { name: "Nexium", price: 55.00, quantity: 12.00 },
+        { name: "Seroquel", price: 17.50, quantity: 10.00 },
+      ]).then(data => {
+
+      }).catch(error => {
+
+      })
+    }).catch(error => {
+
+    })
+  }).catch(error => {
+
+  })
+}).catch(error => {
+
+})
+
+
+
+
 var app = express();
 
 // view engine setup
